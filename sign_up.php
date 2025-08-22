@@ -1,20 +1,19 @@
 <?php
-$conn= mysqli_connect("localhost","root","","financetracker","3307");
+$con = mysqli_connect("localhost", "root", "", "lms", "3307");
 
-$username = isset($_POST['user_name']) ? $_POST['user_name'] : '';
-$email = isset($_POST['user_email']) ? $_POST['user_email'] : '';
-$password = isset($_POST['user_password']) ? $_POST['user_password'] : '';
+$usernamee = $_POST['username'] ?? '';
+$passwordd = $_POST['userpassword'] ?? '';
 
+if (!empty($usernamee) && !empty($passwordd)) {
+    $sql = "SELECT * FROM signupp WHERE user_name='$usernamee' AND user_password='$passwordd'";
+    $result = mysqli_query($con, $sql);
 
-$Sql = "Insert Into sign_up (user_name,user_email,user_password) Values('$username','$email','$password')";
-if(mysqli_query($conn,$Sql)){
-	echo "1";
-}else{
-	echo "please try later";
+    if (mysqli_num_rows($result) > 0) {
+        echo "1"; // login success
+    } else {
+        echo "2"; // login failed
+    }
+} else {
+    echo "please enter the values";
 }
-
-
-
-
-
 ?>
